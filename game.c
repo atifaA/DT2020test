@@ -4,72 +4,98 @@
 #include <time.h>
 
 
-#define HEIGHT_OF_BOARD 50
-    #define WIDTH_OF_BOARD 50
-    #define DEAD_CELL 0
-    #define ALIVE_CELL 1
-    #define CIRCULAR_BOARD 1
-    #define CLIPPED_BOARD 0
+int clipped_neighbours(struct board Board, int x,int y){
 
-    #define DEBUG_TRUE 1
-    #define DEBUG_FALSE 0
+    int counter_neighbours=0;
 
-    // struct cell{
-    //     int x;
-    //     int y;
-    //     unsigned int dead;
-    // };
+    for(int i = -1; i <= 1; i++)
+    {
+        for(int j = -1; j <= 1; j++)
+        {
+            if ( !(y+i<0 || x+j<0 || y+i >= HEIGHT_OF_BOARD || x+j >= WIDTH_OF_BOARD) ){
+                if(Board.cells[y+i][x+j] == ALIVE_CELL)
+                {
+                    if(!(i == 0 && j == 0)){
+                        counter_neighbours++;
+                    }
+                
+                }
+            }
+        }
 
-    struct board{
-        unsigned short cells[WIDTH_OF_BOARD][HEIGHT_OF_BOARD];
-        unsigned short circular_flag;
-    };
+    }
+    return counter_neighbours;
+
+}
+
+int circular_neighbour(struct board Board, int x, int y){
+    int counter_neighbours=0;
+
+    for(int i = -1; i <= 1; i++)
+    {
+        for(int j = -1; j <= 1; j++)
+        {
+            
+            int y_temp = y+i;
+            int x_temp = x+j;
+
+            if (y+i<0)
+                y_temp = HEIGHT_OF_BOARD - 1;
+            if (x+j<0)
+                x_temp = WIDTH_OF_BOARD - 1;
+            if (y+i >= HEIGHT_OF_BOARD)
+                y_temp = 0;
+            if (x+j >= WIDTH_OF_BOARD)
+                x_temp = 0;
+
+            if(Board.cells[y_temp][x_temp] == ALIVE_CELL)
+            {
+                if(!(i == 0 && j == 0)){
+                    counter_neighbours++;
+                }
+            
+            }
+        }
+
+    }
+    return counter_neighbours;
+}
 
 
-    void new_random_board(struct board *brd, unsigned short circular_flag);
-
-    int clipped_neighbours(struct board brd, int x, int y);
-    int circular_neighbour(struct board brd, int x, int y);
-    struct board new_board(struct board brd);
-    void print_board(struct board brd, unsigned short debug);
-
-
-
-
-void new_random_board(struct board *brd, unsigned short circular_flag){
+void create_random_board(struct board *Board, unsigned short circular_flag){
     time_t t;
     
     srand((unsigned) time(&t));
 
-    brd->circular_flag = circular_flag;
+    Board->circular_flag = circular_flag;
 
     for (int i = 0; i < HEIGHT_OF_BOARD; i++)
     {
         for (int j = 0; j < WIDTH_OF_BOARD; j++){
             
             if (rand()%10 > 7){
-                brd->cells[i][j] = ALIVE_CELL;
+                Board->cells[i][j] = ALIVE_CELL;
             }else{
-                brd->cells[i][j] = DEAD_CELL;
+                Board->cells[i][j] = DEAD_CELL;
             }
         }
     }
 }
 
-struct board new_board(struct board brd){
+struct board create_new_board(struct board Board){
     struct board new_board;
-    new_board.circular_flag = brd.circular_flag;
+    new_board.circular_flag = Board.circular_flag;
     for (int i = 0; i< HEIGHT_OF_BOARD; i++){
         for (int j = 0; j < WIDTH_OF_BOARD; j++){
             int nghbrs = 0;
-            if (brd.circular_flag == CLIPPED_BOARD){
-                nghbrs = clipped_neighbours(brd, j, i);
+            if (Board.circular_flag == CLIPPED_BOARD){
+                nghbrs = clipped_neighbours(Board, j, i);
             }else{
-                nghbrs = circular_neighbour(brd, j, i);
+                nghbrs = circular_neighbour(Board, j, i);
             }
 
 
-            if (brd.cells[i][j] == ALIVE_CELL){
+            if (Board.cells[i][j] == ALIVE_CELL){
                 if (nghbrs == 2 || nghbrs == 3){
                     new_board.cells[i][j] = ALIVE_CELL;
                 }else{
@@ -87,22 +113,3 @@ struct board new_board(struct board brd){
 
     return new_board;
 }
-
-void print_board(struct board brd, unsigned short debug){
-
-    printf("\e[2J");
-    printf("\e[0;0H");
-    
-    for (int i = 0; i < HEIGHT_OF_BOARD; i++)
-    {
-        for (int j = 0; j < WIDTH_OF_BOARD; j++)
-        {
-            if(debug == DEBUG_FALSE)
-                printf((brd.cells[i][j] == ALIVE_CELL ? "\033[07m  \e[0m" : "  "));
-            else
-                // printf( (brd.cells[i][j] == ALIVE_CELL ? "\033[07m%d \e[0m" : "%d "),
-                //     (brd.circular_flag == CLIPPED_BOARD ? clipped_neighbours(brd, j, i) : circular_neighbour(brd, j, i)) );
-        }
-        printf("\n");
-        
-    }
