@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
-#include "game.h"
-#include "print_with_ansi.h"
+#include "game/game.h"
+#include "console/print_with_ansi.h"
 
 int main(int argc, char const *argv[])
 {
