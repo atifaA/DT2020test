@@ -16,11 +16,11 @@
         unsigned short circular_flag;
     };
 
-//new random
+
     void create_random_board(struct board *Board, unsigned short circular_flag);
 
     int clipped_neighbours(struct board Board, int x, int y);
     int circular_neighbour(struct board Board, int x, int y);
-    struct board create_new_board(struct board Board);  //next board
+    struct board create_new_board(struct board Board);
 
 #endif

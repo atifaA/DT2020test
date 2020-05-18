@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/atifa/Desktop/GameOfLife/console/print_with_ansi.c
+stdio.h
+-
+print_with_ansi.h
+/home/atifa/Desktop/GameOfLife/console/print_with_ansi.h
+
+/home/atifa/Desktop/GameOfLife/console/print_with_ansi.h
+../game/game.h
+/home/atifa/Desktop/GameOfLife/game/game.h
+
+/home/atifa/Desktop/GameOfLife/game/game.h
+
