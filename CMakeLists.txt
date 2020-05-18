@@ -5,7 +5,7 @@ project(GameOfLife LANGUAGES C)
 
 add_subdirectory(console)
 add_subdirectory(game)
-
+add_subdirectory(printing_SDL2)
 set (SRC main.c)
 
 add_executable(${PROJECT_NAME} "")
@@ -13,6 +13,6 @@ target_sources(${PROJECT_NAME} PUBLIC ${SRC})
 
 target_link_libraries(${PROJECT_NAME} PUBLIC console) 
 target_link_libraries(${PROJECT_NAME} PUBLIC game) 
-
+target_link_libraries(${PROJECT_NAME} PUBLIC printing_SDL2) 
 
 install(TARGETS ${PROJECT_NAME})
