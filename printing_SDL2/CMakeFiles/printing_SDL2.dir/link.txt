@@ -1,1 +1,0 @@
-/usr/bin/cc -fPIC   -shared -Wl,-soname,libprinting_SDL2.so -o libprinting_SDL2.so CMakeFiles/printing_SDL2.dir/print_with_sdl.c.o CMakeFiles/printing_SDL2.dir/__/game/game.c.o  -Wl,-rpath,/home/atifa/Desktop/GameOfLife/game: -lSDL2 ../game/libgame.so -lm 
