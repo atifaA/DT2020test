@@ -1,15 +1,15 @@
-#ifndef PRINT_TO_SDL_H
-#define PRINT_TO_SDL_H
+#ifndef PRINT_WITH_SDL_H
+#define PRINT_WITH_SDL_H
 
 #include "../game/game.h"
 
 #include <SDL2/SDL.h> 
 
 
-    int print_SDL_init();
+    int withSDL_init(int Board_width, int Board_height);
 
-    int print_SDL_print(struct board Board);
+    int withSDL_print(struct board Board);
 
-    void print_SDL_close();
+    void withSDL_close();
 
 #endif
