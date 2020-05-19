@@ -2,6 +2,14 @@
 
     // const int SCREEN_WIDTH = WIDTH_OF_BOARD*10;
     // const int SCREEN_HEIGHT = HEIGHT_OF_BOARD*10;
+/**
+ * @brief 
+ * @param renderer
+ * @param Board
+ * 
+ * @return 
+ * 
+ */
 
  void draw(SDL_Renderer* renderer,struct board Board)
 {
