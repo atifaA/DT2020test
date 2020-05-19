@@ -2,7 +2,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-
+/**
+ * Non-Circular Neighbours
+ * @brief 
+ * @param Board 
+ * @param x
+ * @param y
+ * @return int
+ */
 
 int clipped_neighbours(struct board Board, int x,int y){
 
@@ -27,6 +34,13 @@ int clipped_neighbours(struct board Board, int x,int y){
     return counter_neighbours;
 
 }
+/** Circular Neighbours
+ * @brief 
+ * @param Board 
+ * @param x
+ * @param y
+ * @return int
+ */
 
 int circular_neighbour(struct board Board, int x, int y){
     int counter_neighbours=0;
@@ -60,7 +74,13 @@ int circular_neighbour(struct board Board, int x, int y){
     }
     return counter_neighbours;
 }
-
+/**
+ * Create Random Board
+ * @brief 
+ * @param Board 
+ * @param circular_flag ineger
+ * @return int
+ */
 
 void create_random_board(struct board *Board, unsigned short circular_flag){
     time_t t;
@@ -81,7 +101,12 @@ void create_random_board(struct board *Board, unsigned short circular_flag){
         }
     }
 }
-
+/**
+ * Create new Board
+ * @brief 
+ * @param Board 
+ * @return struct board
+ */
 struct board create_new_board(struct board Board){
     struct board new_board;
     new_board.circular_flag = Board.circular_flag;
