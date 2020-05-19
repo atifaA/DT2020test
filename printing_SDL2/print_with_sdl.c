@@ -1,17 +1,19 @@
 #include "print_with_sdl.h"
 
-    const int SCREEN_WIDTH = WIDTH_OF_BOARD*10;
-    const int SCREEN_HEIGHT = HEIGHT_OF_BOARD*10;
-    // The window we'll be rendering to
+    // const int SCREEN_WIDTH = WIDTH_OF_BOARD*10;
+    // const int SCREEN_HEIGHT = HEIGHT_OF_BOARD*10;
+    // // The window 
     SDL_Window* window = NULL;
     
     //The surface contained by the window
     SDL_Surface* screenSurface = NULL;
 
-int print_SDL_init(){
+//initializing the GUI
+int withSDL_init(int Board_width , int Board_height){
     int res = 0;
-    if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_EVENTS ) < 0 )
-    {
+    const int SCREEN_WIDTH = Board_width*10;
+    const int SCREEN_HEIGHT = Board_height*10;
+    if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_EVENTS ) < 0 ){
         printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
         res = 1;
     }else{
@@ -23,36 +25,29 @@ int print_SDL_init(){
             screenSurface = SDL_GetWindowSurface( window );
         }
     }
-
     return res;
 }
-
-int print_SDL_print(struct board Board){
-    
+//showing board on the GUI 
+int withSDL_print(struct board Board){
     SDL_FillRect( screenSurface, NULL, SDL_MapRGB( screenSurface->format, 0x00, 0x00, 0x00 ) );
-    for (int i = 0; i < HEIGHT_OF_BOARD; i++)
-    {
-        for (int j = 0; j < WIDTH_OF_BOARD; j++)
-        {
+    for (int i = 0; i < Board.height; i++){
+        for (int j = 0; j < Board.width; j++){
             // printf((Board.cells[i][j] == ALIVE_CELL ? "\033[07m  \e[0m" : "  "));
             if (Board.cells[i][j] == ALIVE_CELL){
-                const SDL_Rect rect = {j*10, i*10, 10, 10};
-
-                SDL_FillRect(screenSurface, &rect, SDL_MapRGB( screenSurface->format, 0xFF, 0xFF, 0xFF ));
+                const SDL_Rect rectangle = {j*10, i*10, 10, 10};
+                SDL_FillRect(screenSurface, &rectangle, SDL_MapRGB( screenSurface->format, 0xFF, 0xFF, 0xFF ));
             }
         }
-        printf("\n");
-        
+        printf("\n");    
     }
     SDL_UpdateWindowSurface( window );
 }
 
-void print_SDL_close(){
+//Quiting the GUI
+void withSDL_close(){
     SDL_FreeSurface(screenSurface);
     screenSurface = NULL;
-
     SDL_DestroyWindow(window);
     window = NULL;
-
     SDL_Quit();
 }

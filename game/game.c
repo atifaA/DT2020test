@@ -15,21 +15,16 @@ int clipped_neighbours(struct board Board, int x,int y){
 
     int counter_neighbours=0;
 
-    for(int i = -1; i <= 1; i++)
-    {
-        for(int j = -1; j <= 1; j++)
-        {
-            if ( !(y+i<0 || x+j<0 || y+i >= HEIGHT_OF_BOARD || x+j >= WIDTH_OF_BOARD) ){
-                if(Board.cells[y+i][x+j] == ALIVE_CELL)
-                {
+    for(int i = -1; i <= 1; i++){
+        for(int j = -1; j <= 1; j++){
+            if ( !(y+i<0 || x+j<0 || y+i >= Board.height || x+j >= Board.width) ){
+                if(Board.cells[y+i][x+j] == ALIVE_CELL){
                     if(!(i == 0 && j == 0)){
                         counter_neighbours++;
-                    }
-                
+                    }               
                 }
             }
         }
-
     }
     return counter_neighbours;
 
@@ -54,12 +49,12 @@ int circular_neighbour(struct board Board, int x, int y){
             int x_temp = x+j;
 
             if (y+i<0)
-                y_temp = HEIGHT_OF_BOARD - 1;
+                y_temp = Board.height - 1;
             if (x+j<0)
-                x_temp = WIDTH_OF_BOARD - 1;
-            if (y+i >= HEIGHT_OF_BOARD)
+                x_temp = Board.width - 1;
+            if (y+i >= Board.height)
                 y_temp = 0;
-            if (x+j >= WIDTH_OF_BOARD)
+            if (x+j >= Board.width)
                 x_temp = 0;
 
             if(Board.cells[y_temp][x_temp] == ALIVE_CELL)
@@ -76,23 +71,22 @@ int circular_neighbour(struct board Board, int x, int y){
 }
 /**
  * Create Random Board
+ * DEAD_CELL or ALIVE_CELL are randomly assigned on the existing cells.
  * @brief 
  * @param Board 
  * @param circular_flag ineger
  * @return int
  */
 
-void create_random_board(struct board *Board, unsigned short circular_flag){
+void create_random_board(struct board *Board){
     time_t t;
-    
     srand((unsigned) time(&t));
 
-    Board->circular_flag = circular_flag;
+    // Board->type_flag = type_flag;
 
-    for (int i = 0; i < HEIGHT_OF_BOARD; i++)
+    for (int i = 0; i < Board->height; i++)
     {
-        for (int j = 0; j < WIDTH_OF_BOARD; j++){
-            
+        for (int j = 0; j < Board->width; j++){            
             if (rand()%10 > 7){
                 Board->cells[i][j] = ALIVE_CELL;
             }else{
@@ -102,32 +96,31 @@ void create_random_board(struct board *Board, unsigned short circular_flag){
     }
 }
 /**
- * Create new Board
+ * Creates a new board from board using specified rules based on neighbours
  * @brief 
  * @param Board 
  * @return struct board
  */
 struct board create_new_board(struct board Board){
     struct board new_board;
-    new_board.circular_flag = Board.circular_flag;
-    for (int i = 0; i< HEIGHT_OF_BOARD; i++){
-        for (int j = 0; j < WIDTH_OF_BOARD; j++){
-            int nghbrs = 0;
-            if (Board.circular_flag == CLIPPED_BOARD){
-                nghbrs = clipped_neighbours(Board, j, i);
+    user_init_param(&new_board, Board.width, Board.height, Board.type_flag);
+    new_board.type_flag = Board.type_flag;
+    for (int i = 0; i< Board.height; i++){
+        for (int j = 0; j < Board.width; j++){
+            int neighbours = 0;
+            if (Board.type_flag == CLIPPED_BOARD){
+                neighbours = clipped_neighbours(Board, j, i);
             }else{
-                nghbrs = circular_neighbour(Board, j, i);
+                neighbours = circular_neighbour(Board, j, i);
             }
-
-
             if (Board.cells[i][j] == ALIVE_CELL){
-                if (nghbrs == 2 || nghbrs == 3){
+                if (neighbours == 2 || neighbours == 3){
                     new_board.cells[i][j] = ALIVE_CELL;
                 }else{
                     new_board.cells[i][j] = DEAD_CELL;
                 }
             }else{
-                if (nghbrs == 3){
+                if (neighbours == 3){
                     new_board.cells[i][j] = ALIVE_CELL;
                 }else{
                     new_board.cells[i][j] = DEAD_CELL;
@@ -137,4 +130,25 @@ struct board create_new_board(struct board Board){
     }
 
     return new_board;
+}
+
+
+void user_init_param(struct board *Board, int width, int height, unsigned short type_flag){
+    Board->type_flag = type_flag;
+    Board->height = height;
+    Board->width = width;
+    Board->cells = malloc(Board->height * sizeof(unsigned short *));
+    for(int i = 0; i < Board->height; i++){
+        Board->cells[i] = malloc(Board->width * sizeof(unsigned short));
+    }
+}
+
+
+void destroy_board(struct board *Board){
+
+
+    for (int i = 0; i < Board->height; i++){
+        free(Board->cells[i]);
+    }
+    free(Board->cells);
 }
