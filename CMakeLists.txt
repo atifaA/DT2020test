@@ -14,5 +14,8 @@ target_sources(${PROJECT_NAME} PUBLIC ${SRC})
 target_link_libraries(${PROJECT_NAME} PUBLIC console) 
 target_link_libraries(${PROJECT_NAME} PUBLIC game) 
 target_link_libraries(${PROJECT_NAME} PUBLIC printing_SDL2) 
+# target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES})
+# add_compile_options("-lSDL2")
+
 
 install(TARGETS ${PROJECT_NAME})

@@ -3,86 +3,64 @@
 #include "game/game.h"
 #include "console/print_with_ansi.h"
 #include "printing_SDL2/print_with_sdl.h"
-#include <getopt.h>
 #include <signal.h>
-
+#include <getopt.h>
 
 int quit = 0;
 
-void quit_signal(){
-    quit = 1;
+void quit_signal()
+{
+	quit = 1;
 }
-
-
 int main(int argc, char const *argv[])
 {
-    struct board Board;
-    user_init_param(&Board, 500, 50, CIRCULAR_BOARD);
-    create_random_board(&Board);
-    BoardPrinting_ansi(Board, FALSE);
-    // print_SDL_print(Board);
-    //SDL_Event e;
-    signal(SIGINT, quit_signal);
+	struct board Board;
+	create_random_board(&Board, CIRCULAR_BOARD);
+	int n;
+	printf("please enter 1 for ansi 2 for sdl\n");
+	scanf("%d", &n);
+	if (n == 1)
+	{
+		signal(SIGINT, quit_signal);
+		BoardPrinting_ansi(Board, FALSE);
+		while (!quit)
+		{
+			sleep(1);
+			Board = create_new_board(Board);
+			BoardPrinting_ansi(Board, FALSE);
+		}
+	}
+	if (n == 2)
+	{
+		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0)
+		{
+			fprintf(stderr, "Problem can not init SDL2 \n");
+			return 0;
+		}
 
-    while(!quit){
-        sleep(1);
-        Board = create_new_board(Board);
-        BoardPrinting_ansi(Board, FALSE);
-        // print_SDL_print(Board);
-        // while (SDL_PollEvent(&e)){
-            // if(e.type == SDL_QUIT){
-            //     quit = 1;
-            // }
-        //}
+		SDL_Window *window = SDL_CreateWindow("Life", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, HEIGHT_OF_BOARD * 10, WIDTH_OF_BOARD * 10, SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI);
+		SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+		assert(renderer != NULL);
 
-    }
+		// SIMPLE EVENT & DRAWING LOOP
+		bool quit = false;
+		while (!quit)
+		{
+			SDL_Event event;
+			while (!quit && SDL_PollEvent(&event))
+			{
+				switch (event.type)
+				{
+				case SDL_QUIT:
+					quit = true;
+					break;
+				}
+			}
+			draw(renderer, Board);
+			SDL_RenderPresent(renderer);
+		}
+		SDL_Quit();
+	}
 
-    //print_SDL_close();
-    destroy_board(&Board);
-
-    return 0;
+	return 0;
 }
-
-
-// #include <unistd.h>
-// #include <SDL2/SDL.h>
-// #include <signal.h>
-// #include "game.h"
-
-// int quit = 0;
-
-// void quit_signal(){
-//     quit = 1;
-// }
-// int main(int argc, char const *argv[])
-// {
-//     struct board brd;
-//     init_board(&brd, 60, 50, CIRCULAR_BOARD);
-//     new_random_board(&brd);
-//     print_board(brd, DEBUG_FALSE);
-//     // print_SDL_init();
-//     // print_SDL_print(brd);
-
-//     // SDL_Event e;
-//     signal(SIGINT, quit_signal);
-
-//     while(!quit){
-//         sleep(1);
-//         brd = next_board(brd);
-//         print_board(brd, DEBUG_FALSE);
-//         // print_SDL_print(brd);
-//         // while (SDL_PollEvent(&e)){
-//         //     if (e.type == SDL_QUIT){
-//         //         quit = 1;
-//         //     }
-//         // }
-//     }
-    
-//     // print_SDL_close();
-
-//     destroy_board(&brd);
-
-
-
-//     return 0;
-// }

@@ -215,6 +215,19 @@ game/fast:
 	$(MAKE) $(MAKESILENT) -f game/CMakeFiles/game.dir/build.make game/CMakeFiles/game.dir/build
 .PHONY : game/fast
 
+#=============================================================================
+# Target rules for targets named printing_SDL2
+
+# Build rule for target.
+printing_SDL2: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 printing_SDL2
+.PHONY : printing_SDL2
+
+# fast build rule for target.
+printing_SDL2/fast:
+	$(MAKE) $(MAKESILENT) -f printing_SDL2/CMakeFiles/printing_SDL2.dir/build.make printing_SDL2/CMakeFiles/printing_SDL2.dir/build
+.PHONY : printing_SDL2/fast
+
 console/print_with_ansi.o: console/print_with_ansi.c.o
 
 .PHONY : console/print_with_ansi.o
@@ -296,6 +309,33 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/GameOfLife.dir/build.make CMakeFiles/GameOfLife.dir/main.c.s
 .PHONY : main.c.s
 
+printing_SDL2/print_with_sdl.o: printing_SDL2/print_with_sdl.c.o
+
+.PHONY : printing_SDL2/print_with_sdl.o
+
+# target to build an object file
+printing_SDL2/print_with_sdl.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GameOfLife.dir/build.make CMakeFiles/GameOfLife.dir/printing_SDL2/print_with_sdl.c.o
+.PHONY : printing_SDL2/print_with_sdl.c.o
+
+printing_SDL2/print_with_sdl.i: printing_SDL2/print_with_sdl.c.i
+
+.PHONY : printing_SDL2/print_with_sdl.i
+
+# target to preprocess a source file
+printing_SDL2/print_with_sdl.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GameOfLife.dir/build.make CMakeFiles/GameOfLife.dir/printing_SDL2/print_with_sdl.c.i
+.PHONY : printing_SDL2/print_with_sdl.c.i
+
+printing_SDL2/print_with_sdl.s: printing_SDL2/print_with_sdl.c.s
+
+.PHONY : printing_SDL2/print_with_sdl.s
+
+# target to generate assembly for a file
+printing_SDL2/print_with_sdl.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/GameOfLife.dir/build.make CMakeFiles/GameOfLife.dir/printing_SDL2/print_with_sdl.c.s
+.PHONY : printing_SDL2/print_with_sdl.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -311,6 +351,7 @@ help:
 	@echo "... GameOfLife"
 	@echo "... console"
 	@echo "... game"
+	@echo "... printing_SDL2"
 	@echo "... console/print_with_ansi.o"
 	@echo "... console/print_with_ansi.i"
 	@echo "... console/print_with_ansi.s"
@@ -320,6 +361,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... printing_SDL2/print_with_sdl.o"
+	@echo "... printing_SDL2/print_with_sdl.i"
+	@echo "... printing_SDL2/print_with_sdl.s"
 .PHONY : help
 
 

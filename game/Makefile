@@ -68,10 +68,10 @@ RM = /usr/local/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/atifa/Desktop/GameOfLife
+CMAKE_SOURCE_DIR = /home/nafila/Desktop/DevTech/GameOfLife
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/atifa/Desktop/GameOfLife
+CMAKE_BINARY_DIR = /home/nafila/Desktop/DevTech/GameOfLife
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -88,22 +88,10 @@ install/strip/fast: preinstall/fast
 	/usr/local/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/local/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/local/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -122,6 +110,28 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
@@ -134,26 +144,16 @@ install/fast: preinstall/fast
 	/usr/local/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
-
 # The main all target
 all: cmake_check_build_system
-	cd /home/atifa/Desktop/GameOfLife && $(CMAKE_COMMAND) -E cmake_progress_start /home/atifa/Desktop/GameOfLife/CMakeFiles /home/atifa/Desktop/GameOfLife/game/CMakeFiles/progress.marks
-	cd /home/atifa/Desktop/GameOfLife && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 game/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/atifa/Desktop/GameOfLife/CMakeFiles 0
+	cd /home/nafila/Desktop/DevTech/GameOfLife && $(CMAKE_COMMAND) -E cmake_progress_start /home/nafila/Desktop/DevTech/GameOfLife/CMakeFiles /home/nafila/Desktop/DevTech/GameOfLife/game/CMakeFiles/progress.marks
+	cd /home/nafila/Desktop/DevTech/GameOfLife && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 game/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nafila/Desktop/DevTech/GameOfLife/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/atifa/Desktop/GameOfLife && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 game/clean
+	cd /home/nafila/Desktop/DevTech/GameOfLife && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 game/clean
 .PHONY : clean
 
 # The main clean target
@@ -163,22 +163,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/atifa/Desktop/GameOfLife && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 game/preinstall
+	cd /home/nafila/Desktop/DevTech/GameOfLife && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 game/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/atifa/Desktop/GameOfLife && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 game/preinstall
+	cd /home/nafila/Desktop/DevTech/GameOfLife && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 game/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/atifa/Desktop/GameOfLife && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/nafila/Desktop/DevTech/GameOfLife && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 game/CMakeFiles/game.dir/rule:
-	cd /home/atifa/Desktop/GameOfLife && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 game/CMakeFiles/game.dir/rule
+	cd /home/nafila/Desktop/DevTech/GameOfLife && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 game/CMakeFiles/game.dir/rule
 .PHONY : game/CMakeFiles/game.dir/rule
 
 # Convenience name for target.
@@ -188,7 +188,7 @@ game: game/CMakeFiles/game.dir/rule
 
 # fast build rule for target.
 game/fast:
-	cd /home/atifa/Desktop/GameOfLife && $(MAKE) $(MAKESILENT) -f game/CMakeFiles/game.dir/build.make game/CMakeFiles/game.dir/build
+	cd /home/nafila/Desktop/DevTech/GameOfLife && $(MAKE) $(MAKESILENT) -f game/CMakeFiles/game.dir/build.make game/CMakeFiles/game.dir/build
 .PHONY : game/fast
 
 game.o: game.c.o
@@ -197,7 +197,7 @@ game.o: game.c.o
 
 # target to build an object file
 game.c.o:
-	cd /home/atifa/Desktop/GameOfLife && $(MAKE) $(MAKESILENT) -f game/CMakeFiles/game.dir/build.make game/CMakeFiles/game.dir/game.c.o
+	cd /home/nafila/Desktop/DevTech/GameOfLife && $(MAKE) $(MAKESILENT) -f game/CMakeFiles/game.dir/build.make game/CMakeFiles/game.dir/game.c.o
 .PHONY : game.c.o
 
 game.i: game.c.i
@@ -206,7 +206,7 @@ game.i: game.c.i
 
 # target to preprocess a source file
 game.c.i:
-	cd /home/atifa/Desktop/GameOfLife && $(MAKE) $(MAKESILENT) -f game/CMakeFiles/game.dir/build.make game/CMakeFiles/game.dir/game.c.i
+	cd /home/nafila/Desktop/DevTech/GameOfLife && $(MAKE) $(MAKESILENT) -f game/CMakeFiles/game.dir/build.make game/CMakeFiles/game.dir/game.c.i
 .PHONY : game.c.i
 
 game.s: game.c.s
@@ -215,7 +215,7 @@ game.s: game.c.s
 
 # target to generate assembly for a file
 game.c.s:
-	cd /home/atifa/Desktop/GameOfLife && $(MAKE) $(MAKESILENT) -f game/CMakeFiles/game.dir/build.make game/CMakeFiles/game.dir/game.c.s
+	cd /home/nafila/Desktop/DevTech/GameOfLife && $(MAKE) $(MAKESILENT) -f game/CMakeFiles/game.dir/build.make game/CMakeFiles/game.dir/game.c.s
 .PHONY : game.c.s
 
 # Help Target
@@ -245,6 +245,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/atifa/Desktop/GameOfLife && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/nafila/Desktop/DevTech/GameOfLife && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

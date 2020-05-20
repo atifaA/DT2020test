@@ -1,1 +1,0 @@
-/usr/bin/cc -fPIC   -shared -Wl,-soname,libconsole.so -o libconsole.so CMakeFiles/console.dir/print_with_ansi.c.o 
